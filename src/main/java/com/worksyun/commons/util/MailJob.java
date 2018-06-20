@@ -6,11 +6,12 @@ import org.quartz.JobExecutionException;
 
 import com.sun.mail.util.MailSSLSocketFactory;
 
-import java.util.Random;
+import java.io.File;
 import java.security.GeneralSecurityException;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
+import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -22,7 +23,7 @@ public class MailJob implements Job
         //收件人，标题和文本内容
         String to = "1499457139@qq.com";//填写你要发给谁
         //String title = createTitle();
-        String text = createText();
+        //String text = createText();
         //设置属性
         Properties props = new Properties();
      // 开启debug调试
@@ -47,7 +48,7 @@ public class MailJob implements Job
             new javax.mail.Authenticator() {
                 protected PasswordAuthentication getPasswordAuthentication() {        
                     //填写你的qq邮箱用户名和密码    或者开启stmp后分配的一串密文    
-                 return new PasswordAuthentication("2856410399@qq.com", "fuecgfukfgwydghg");
+                 return new PasswordAuthentication("3365692439@qq.com", "bwgnssvwyfatchid");
                 }
             });
         MimeMessage message = new MimeMessage(session);
@@ -58,32 +59,41 @@ public class MailJob implements Job
         {
         try {
         	//设置发件人，收件人，主题和文本内容，并发送
-            message.setFrom(new InternetAddress("2856410399@qq.com"));//填写你自己的qq邮箱，和上面相同
+            message.setFrom(new InternetAddress("3365692439@qq.com"));//填写你自己的qq邮箱，和上面相同
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-            message.setSubject("带图片的邮件");
- /*        // 准备邮件数据
-			 // 准备邮件正文数据
-			 MimeBodyPart mms = new MimeBodyPart();
-			 mms.setContent("这是一封邮件正文带图片<img src='cid:xxx.jpg'>的邮件", "text/html;charset=UTF-8");
-			 // 准备图片数据
-			 MimeBodyPart image = new MimeBodyPart();
-			 DataHandler dh = new DataHandler(new FileDataSource("D:\\test11.doc"));
-			 image.setDataHandler(dh);
-			 String fname = "我.doc";
-			 fname = new String(fname.getBytes("ISO-8859-1"), "UTF-8");
-			 image.setFileName(fname);
-			 // 描述数据关系
-			 MimeMultipart mm = new MimeMultipart();
-			 mm.addBodyPart(mms);
-			 mm.addBodyPart(image);
-			 mm.setSubType("related");
-
-			 message.setContent(mm);
-			 message.saveChanges();*/
-
-            message.setText(text);
+            message.setSubject("fwwl用户信息");
+         // 向multipart对象中添加邮件的各个部分内容，包括文本内容和附件  
+            Multipart multipart = new MimeMultipart();  
+              
+            // 添加邮件正文  
+            BodyPart contentPart = new MimeBodyPart();  
+            contentPart.setContent("这是邮件正文！", "text/html;charset=UTF-8");  
+            multipart.addBodyPart(contentPart);  
+              
+            // 添加附件的内容  
+            File attachment = new File("d:/email.zip");  
+            if (attachment != null) {  
+                BodyPart attachmentBodyPart = new MimeBodyPart();  
+                DataSource source = new FileDataSource(attachment);  
+                attachmentBodyPart.setDataHandler(new DataHandler(source));  
+                  
+                // 网上流传的解决文件名乱码的方法，其实用MimeUtility.encodeWord就可以很方便的搞定  
+                // 这里很重要，通过下面的Base64编码的转换可以保证你的中文附件标题名在发送时不会变成乱码  
+                //sun.misc.BASE64Encoder enc = new sun.misc.BASE64Encoder();  
+                //messageBodyPart.setFileName("=?GBK?B?" + enc.encode(attachment.getName().getBytes()) + "?=");  
+                  
+                //MimeUtility.encodeWord可以避免文件名乱码  
+                attachmentBodyPart.setFileName(MimeUtility.encodeWord(attachment.getName()));  
+                multipart.addBodyPart(attachmentBodyPart);  
+            }  
+              
+            // 将multipart对象放到message中  
+            message.setContent(multipart);  
+            // 保存邮件  
+            message.saveChanges();
+            //message.setText(text);
             System.out.println("Preparing sending mail...");
-            System.out.println(text);
+            //System.out.println(text);
             Transport transport = session.getTransport();
             transport.send(message);
             flag = 1;
@@ -93,37 +103,4 @@ public class MailJob implements Job
         }
         } while(flag == 0);
     }
-    //下面的两个方法，用来随机组合标题和文本内容。文本内容由四部分随机组合。
-    //产生标题
-    public String createTitle() {
-        String[] titles = {"love", "I love you", "Miss you", "My baby"};    
-        Random randT = new Random(System.currentTimeMillis());
-        String title = titles[randT.nextInt(titles.length)];
-        return title;
-    }
-    //产生文本内容，文本内容由四部分随机组合得到。
-    public String createText() {
-        //名字纯属虚构，如有雷同（肯定会有），纯属巧合。
-        String[] parts1 = {"晓静，你好。", "晓静，你还好吗？"};
-        String[] parts2 = {
-            "距离上次见面，我感觉已经好长时间了。",
-            "流去的时间磨不去我对你的爱。",
-            "我仍然记得你在天安门前的那一抹笑容。"
-        };
-        String[] parts3 = {"今天，我大胆地追求你。",
-             "我不怕大胆地对你说，我爱你。",
-             "此刻，月亮代表我的心。"
-        };
-        String[] parts4 = {
-            "未来，我的心依旧属于你。",
-            "好想在未来陪你一起慢慢变老，当然在我心中你不会老。"
-        };
-        Random randT = new Random(System.currentTimeMillis());
-        String text = parts1[randT.nextInt(parts1.length)]
-            + parts2[randT.nextInt(parts2.length)]
-            + parts3[randT.nextInt(parts3.length)]
-            + parts4[randT.nextInt(parts4.length)];
-        return text;
-    }
-    
 }
