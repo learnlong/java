@@ -70,12 +70,12 @@ import com.worksyun.api.model.Userauthenticate;
 import com.worksyun.api.model.Userbaseinfo;
 import com.worksyun.api.service.LucenenewsService;
 import com.worksyun.api.service.RssService;
-import com.worksyun.commons.LuceneUtil.BaiduNewList;
-import com.worksyun.commons.LuceneUtil.KnnIndex;
-import com.worksyun.commons.LuceneUtil.KnnSearch;
-import com.worksyun.commons.LuceneUtil.News;
-import com.worksyun.commons.LuceneUtil.NewsBean;
-import com.worksyun.commons.LuceneUtil.ParseMD5;
+//import com.worksyun.commons.LuceneUtil.BaiduNewList;
+//import com.worksyun.commons.LuceneUtil.KnnIndex;
+//import com.worksyun.commons.LuceneUtil.KnnSearch;
+//import com.worksyun.commons.LuceneUtil.News;
+//import com.worksyun.commons.LuceneUtil.NewsBean;
+//import com.worksyun.commons.LuceneUtil.ParseMD5;
 import com.worksyun.commons.model.LoginModel;
 import com.worksyun.commons.test.QRCodeUtil;
 import com.worksyun.commons.util.DateUtil;
@@ -409,21 +409,6 @@ public class GetMessageController {
 		return new ResponseEntity<LoginModel>(new LoginModel(true, mp), new HttpHeaders(), HttpStatus.OK);
 	}
 
-	private static List<Info> infos;
-	private static KnnIndex knnIndex = new KnnIndex();
-	private static KnnSearch knnSearch = new KnnSearch();
-	private static HashMap<String, Integer> result;
-
-	class Info {
-		String url;
-		String type;
-
-		Info(String url, String type) {
-			this.url = url;
-			this.type = type;
-		}
-	}
-
 	
 
 	@Autowired
@@ -497,11 +482,11 @@ public class GetMessageController {
 					HttpStatus.OK);
 		}
 		
-		boolean bl = UseCommonUtil.isPhoneLegal(iccid);
+		/*boolean bl = UseCommonUtil.isPhoneLegal(iccid);
 		if (!bl) {
 			return new ResponseEntity<LoginModel>(new LoginModel(false, "请输入正确手机号!"), new HttpHeaders(),
 					HttpStatus.OK);
-		}
+		}*/
 		mp.put("userId", userId);
 		List<Hardwareinfo> hardwareinfo = hardwareinfoMapper.SelectHardwareinfoByUserId(mp);
 		if(hardwareinfo.isEmpty()) {
