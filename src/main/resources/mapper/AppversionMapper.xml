@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.worksyun.api.mapper.AppversionMapper">
+  <resultMap id="BaseResultMap" type="com.worksyun.api.model.Appversion">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="appId" jdbcType="VARCHAR" property="appId" />
+    <result column="appName" jdbcType="VARCHAR" property="appName" />
+    <result column="versionNumber" jdbcType="VARCHAR" property="versionNumber" />
+    <result column="downloadLink" jdbcType="VARCHAR" property="downloadLink" />
+    <result column="updateTime" jdbcType="VARCHAR" property="updateTime" />
+    <result column="channel" jdbcType="INTEGER" property="channel" />
+    <result column="isMandatory" jdbcType="BIT" property="isMandatory" />
+    <result column="updateContent" jdbcType="VARCHAR" property="updateContent" />
+    <result column="creationUserId" jdbcType="CHAR" property="creationUserId" />
+    <result column="modifyUserName" jdbcType="VARCHAR" property="modifyUserName" />
+    <result column="creationUserName" jdbcType="VARCHAR" property="creationUserName" />
+    <result column="modifyUserId" jdbcType="CHAR" property="modifyUserId" />
+    <result column="modifyTime" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="creationTime" jdbcType="TIMESTAMP" property="creationTime" />
+  </resultMap>
+  
+   <select id="selectAppversion" resultMap="BaseResultMap">
+ 		select * from appversion u where 1=1 
+ 		<if test="channel!=null">
+			and channel = #{channel,jdbcType=INTEGER}
+	    </if>
+	</select>
+	
+</mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.worksyun.api.mapper.LucenenewsMapper">
+  <resultMap id="BaseResultMap" type="com.worksyun.api.model.Lucenenews">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="PublicDate" jdbcType="TIMESTAMP" property="public_date" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="video" jdbcType="VARCHAR" property="video" />
+    <result column="newsId" jdbcType="INTEGER" property="news_id" />
+    <result column="createDate" jdbcType="TIMESTAMP" property="create_date" />
+    <result column="imgsize" jdbcType="INTEGER" property="imgsize" />
+  </resultMap>
+  
+  <select id="selectNewsByDate" resultMap="BaseResultMap">
+ 		select * from lucenenews u where 1=1 
+ 		<if test="PublicDate!=null">
+			and PublicDate = #{PublicDate,jdbcType=TIMESTAMP}
+	    </if>
+	</select>
+	
+	
+	<select id="selectLuceneNews" resultMap="BaseResultMap">
+ 		select * from lucenenews order by id desc limit 20
+	</select>
+	
+	<select id="selectCountLucenenews" resultType="java.lang.Integer">
+ 		select count(*) from lucenenews u where 1=1 
+	</select>
+	
+	
+	 <select id="selectLucenenewsPage" resultMap="BaseResultMap">
+ 		select * from lucenenews u where 1=1 order by id desc
+ 		limit  #{startRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER} 
+	</select>
+	
+	
+	 <select id="selectNewsByUrl" resultMap="BaseResultMap">
+ 		select * from lucenenews u where 1=1 
+ 		<if test="url!=null">
+			and url = #{url,jdbcType=TIMESTAMP}
+	    </if>
+	</select>
+	
+</mapper>

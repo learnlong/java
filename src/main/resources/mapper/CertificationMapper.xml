@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.worksyun.api.mapper.CertificationMapper">
+  <resultMap id="BaseResultMap" type="com.worksyun.api.model.Certification">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="certificationId" jdbcType="CHAR" property="certificationid" />
+    <result column="localhostStatus" jdbcType="INTEGER" property="localhoststatus" />
+    <result column="telecomStatus" jdbcType="INTEGER" property="telecomstatus" />
+    <result column="creationUserName" jdbcType="VARCHAR" property="creationusername" />
+    <result column="creationTime" jdbcType="TIMESTAMP" property="creationtime" />
+    <result column="creationUserId" jdbcType="CHAR" property="creationuserid" />
+    <result column="modifyUserName" jdbcType="VARCHAR" property="modifyusername" />
+    <result column="modifyUserId" jdbcType="CHAR" property="modifyuserid" />
+    <result column="modifyTime2" jdbcType="TIMESTAMP" property="modifytime2" />
+    <result column="activation_status" jdbcType="INTEGER" property="activationStatus" />
+  </resultMap>	
+  
+  
+  <select id="SelectCertificationByUserId" resultMap="BaseResultMap">
+ 		select * from certification u where 1=1 
+ 		<if test="creationUserId!=null">
+			and creationUserId = #{creationUserId,jdbcType=VARCHAR}
+	    </if>
+	</select>
+	
+</mapper>

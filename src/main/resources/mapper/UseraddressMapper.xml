@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.worksyun.api.mapper.UseraddressMapper">
+  <resultMap id="BaseResultMap" type="com.worksyun.api.model.Useraddress">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="addressId" jdbcType="CHAR" property="addressid" />
+    <result column="userId" jdbcType="CHAR" property="userid" />
+    <result column="userName" jdbcType="VARCHAR" property="username" />
+    <result column="contactNumber" jdbcType="VARCHAR" property="contactnumber" />
+    <result column="shippingAddress" jdbcType="VARCHAR" property="shippingaddress" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="creationUserName" jdbcType="VARCHAR" property="creationusername" />
+    <result column="creationTime" jdbcType="TIMESTAMP" property="creationtime" />
+    <result column="creationUserId" jdbcType="CHAR" property="creationuserid" />
+    <result column="modifyUserName" jdbcType="VARCHAR" property="modifyusername" />
+    <result column="modifyUserId" jdbcType="CHAR" property="modifyuserid" />
+    <result column="modifyTime2" jdbcType="TIMESTAMP" property="modifytime2" />
+    <result column="isDefault" jdbcType="BIT" property="isdefault" />
+    <result column="postCode" jdbcType="CHAR" property="postCode" />
+  </resultMap>
+  
+  <select id="selectUserAddressByUserId" resultMap="BaseResultMap">
+ 		select * from useraddress u where 1=1 and isDefault = 1 and status = 1
+ 		<if test="userId!=null">
+			and userId = #{userId,jdbcType=VARCHAR}
+	    </if>
+	</select>
+	
+	
+	<select id="selectUserAddressByUserId2" resultMap="BaseResultMap">
+ 		select * from useraddress u where 1=1 and isDefault = 0 and status = 1
+ 		<if test="userId!=null">
+			and userId = #{userId,jdbcType=VARCHAR} order by creationTime desc
+	    </if>
+	</select>
+	
+	<select id="selectUserAddressByUserId3" resultMap="BaseResultMap">
+ 		select * from useraddress u where 1=1 and status = 1
+ 		<if test="userId!=null">
+			and userId = #{userId,jdbcType=VARCHAR} order by isDefault desc, creationTime desc
+	    </if>
+	</select>
+	
+	
+	 <select id="selectUserAddressByUserId4" resultType="java.lang.Integer">
+ 		select count(*) from useraddress u where 1=1  and status = 1
+ 		<if test="userId!=null">
+			and userId = #{userId,jdbcType=VARCHAR}
+	    </if>
+	</select>
+	
+</mapper>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.worksyun.api.mapper.OperatingstaffMapper">
+  <resultMap id="BaseResultMap" type="com.worksyun.api.model.Operatingstaff">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="userLoginName" jdbcType="VARCHAR" property="userloginname" />
+    <result column="userId" jdbcType="CHAR" property="userid" />
+    <result column="userName" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="contactNumber" jdbcType="VARCHAR" property="contactnumber" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="creationTime" jdbcType="TIMESTAMP" property="creationtime" />
+    <result column="modifyUserId" jdbcType="CHAR" property="modifyuserid" />
+    <result column="modifyTime" jdbcType="TIMESTAMP" property="modifytime" />
+    <result column="modifyUserName" jdbcType="VARCHAR" property="modifyusername" />
+    <result column="creationUserId" jdbcType="CHAR" property="creationuserid" />
+    <result column="creationUserName" jdbcType="VARCHAR" property="creationusername" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,214 @@
+buildscript {
+	ext {
+		springBootVersion = '1.4.3.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+ext{
+    JDK_VERSION="1.8"
+    JACKSON_VERSION="2.8.5"
+    SLF4J_VERSION="1.7.10"
+    JUNIT_VERSION="4.11"
+    SWAGGER2_VERSION="2.6.1"
+    SHIRO_VERSION="1.3.2"
+    SPRING_SHIRO_VERSION="1.0.0"
+    SPRING_SESSION_VERSION="1.3.0.RELEASE"
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+jar {
+	baseName = 'ittp-mansite'
+	version = '0.0.1'
+}
+
+
+sourceCompatibility = JDK_VERSION
+targetCompatibility = JDK_VERSION
+// 编码改为 UTF-8, 否则编译源码的时候会出错
+// 当然，这个需要根据自己的 java 源码的编码进行调整
+[compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+
+configurations{
+    //mybatis 代码生成器
+    mybatisGenerator
+}
+
+
+repositories {
+	mavenCentral()
+}
+
+
+dependencies {
+	compile files('lib/json-lib-2.4-jdk15.jar')
+	compile files('lib/commons-httpclient-3.1.jar')
+	compile files('lib/commons-codec-1.4.jar')
+	compile files('lib/commons-fileupload-1.3.jar')
+	compile files('lib/commons-io-2.4.jar')
+	compile files('lib/jdom-1.0.jar')
+	compile files('lib/rome-0.9.jar')
+	compile files('lib/rsslib4j-0.2.jar')
+	compile files('lib/cpdetector_1.0.10.jar')
+	compile files('lib/antlr-2.7.4.jar')
+	compile files('lib/IKAnalyzer2012FF_u1.jar')
+	compile files('lib/chardet-1.0.jar')
+	
+	//自动部署
+	//compile("org.springframework.boot:spring-boot-devtools:1.5.9.RELEASE")
+	
+	//jsoup爬虫
+    compile('org.jsoup:jsoup:1.8.3')
+    compile('org.apache.lucene:lucene-core:4.10.4')
+    compile('org.apache.lucene:lucene-analyzers-common:4.10.4')
+    compile('org.apache.lucene:lucene-queryparser:4.10.4')
+    compile('net.sourceforge.cssparser:cssparser:0.9.14')
+	
+	//支付宝接口引入的jar
+	compile files('lib/commons-logging-1.1.1.jar')
+	compile files('lib/alipay-sdk-java20171201160035.jar')
+	
+	//微信接口引入jar
+	compile("com.alibaba:fastjson:1.2.31")
+	compile("org.jdom:jdom:1.1.3")
+	compile("org.apache.httpcomponents:httpclient:4.5.3")
+
+	compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile('org.springframework.boot:spring-boot-starter-aop')
+	compile('org.springframework.boot:spring-boot-starter-jdbc')
+	compile('org.springframework.boot:spring-boot-starter-web')
+    compile("org.springframework.boot:spring-boot-starter-jetty")
+    
+    //配置html页面
+    //compile("org.springframework.boot:spring-boot-starter-thymeleaf:1.5.6.RELEASE")
+    
+    //整合jersey
+    //compile("org.springframework.boot:spring-boot-starter-jersey")
+    
+    //二维码
+    compile("com.google.zxing:core:3.3.0")
+    compile files('lib/Javabarcode.jar')
+    
+    
+    //压缩图片
+    compile("net.coobird:thumbnailator:0.4.8")
+    compile("net.iharder:base64:2.3.8")
+    
+    //定时发送邮件
+    compile("org.quartz-scheduler:quartz:2.3.0")
+    compile("javax.activation:activation:1.1.1")
+    compile("javax.mail:mail:1.4.7")
+    compile("org.springframework:spring-context-support:4.3.14.RELEASE")
+    
+    //生成pdf和excel
+    compile("org.apache.poi:poi:3.15")
+    compile("org.apache.poi:poi-ooxml:3.15")
+    compile("com.itextpdf:itextpdf:5.5.10")
+    compile("com.itextpdf:itext-asian:5.2.0")
+    compile("org.freemarker:freemarker:2.3.23")
+    
+    //redis集成
+    //compile('redis.clients:jedis:2.9.0')
+    compile("org.springframework.boot:spring-boot-starter-data-redis:1.5.6.RELEASE")
+    
+    // mybatis 集成
+    compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.1.1')//mybatis官方插件
+    compile('org.mybatis.generator:mybatis-generator-core:1.3.5')//mybatis代码生成器
+    //mybatis 三方插件
+    compile('com.github.pagehelper:pagehelper-spring-boot-starter:1.0.0')//mybatis自动集成分页插件
+    compile('tk.mybatis:mapper-spring-boot-starter:1.0.0')//mybatis 通用mapper
+
+    //集成swagger Api文档
+    compile("io.springfox:springfox-swagger2:${SWAGGER2_VERSION}")
+    compile("io.springfox:springfox-swagger-ui:${SWAGGER2_VERSION}")
+
+    //集成springboot devtools 热部署
+    //compile("org.springframework.boot:spring-boot-devtools")
+
+    compile("mysql:mysql-connector-java:8.0.11")
+    compile('com.alibaba:druid:1.0.27')
+
+    compile("org.apache.commons:commons-lang3:3.5")
+    compile("commons-beanutils:commons-beanutils:1.8.0")
+    compile("org.apache.commons:commons-collections4:4.1")
+    //Guava
+    compile("com.google.guava:guava:20.0")
+
+    compile("joda-time:joda-time:2.9.7")
+    //测试
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+
+    //代码生成器依赖
+    mybatisGenerator 'tk.mybatis:mapper:3.3.9'
+    mybatisGenerator 'org.mybatis.generator:mybatis-generator-core:1.3.5'
+    mybatisGenerator 'mysql:mysql-connector-java'
+}
+
+
+//############################################################################
+//############################# mybatis 代码生成器  ###########################
+//############################################################################s
+
+//定义mybatis代码生成器
+task mybatisGenerate {
+    doLast{
+        def properties = new Properties()
+        ant.properties['targetProject'] = projectDir.path
+        ant.properties['driverClass'] = MgbJdbcDriverClassName
+        ant.properties['connectionURL'] = MgbJdbcUrl
+        ant.properties['userId'] = MgbJdbcUser
+        ant.properties['password'] = MgbJdbcPassword
+        ant.properties['src_main_java'] = sourceSets.main.java.srcDirs[0].path
+        ant.properties['src_main_resources'] = sourceSets.main.resources.srcDirs[0].path
+        ant.properties['modelPackage'] = MgbModelPackage
+        ant.properties['mapperPackage'] = MgbMapperPackage
+        ant.properties['sqlMapperPackage'] = MgbSqlMapperPackage
+
+        ant.taskdef(
+                name: 'mbgenerator',
+                classname: 'org.mybatis.generator.ant.GeneratorAntTask',
+                classpath: configurations.mybatisGenerator.asPath
+        )
+        ant.mbgenerator(overwrite: true,
+                configfile: 'src/main/resources/generator/generatorConfig.xml', verbose: true) {
+            propertyset {
+                propertyref(name: 'targetProject')
+                propertyref(name: 'userId')
+                propertyref(name: 'driverClass')
+                propertyref(name: 'connectionURL')
+                propertyref(name: 'password')
+                propertyref(name: 'src_main_java')
+                propertyref(name: 'src_main_resources')
+                propertyref(name: 'modelPackage')
+                propertyref(name: 'mapperPackage')
+                propertyref(name: 'sqlMapperPackage')
+            }
+        }
+    }
+}
+
+//Gradle 和 idea 集成时如何不自动下载依赖源码和javadoc
+idea {
+    module {
+        downloadSources = true //true自动下载
+        downloadJavadoc = false //false不自动下载
+        inheritOutputDirs = false
+        outputDir = file("$buildDir/classes/main/")
+    }
+
+    project {
+        jdkName = JDK_VERSION
+        languageLevel = JDK_VERSION
+        vcs = 'Git'
+    }
+}

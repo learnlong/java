@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.worksyun.api.mapper.InformationMapper">
+  <resultMap id="BaseResultMap" type="com.worksyun.api.model.Information">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="newsId" jdbcType="CHAR" property="newsid" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creationTime" jdbcType="TIMESTAMP" property="creationtime" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="modifyTime" jdbcType="TIMESTAMP" property="modifytime" />
+    <result column="creationUserName" jdbcType="VARCHAR" property="creationusername" />
+    <result column="modifyUserName" jdbcType="VARCHAR" property="modifyusername" />
+    <result column="source" jdbcType="VARCHAR" property="source" />
+    <result column="tag" jdbcType="VARCHAR" property="tag" />
+    <result column="videoPath" jdbcType="VARCHAR" property="videopath" />
+    <result column="picturePath" jdbcType="VARCHAR" property="picturepath" />
+    <result column="creationUserId" jdbcType="CHAR" property="creationuserid" />
+    <result column="modifyUserId" jdbcType="CHAR" property="modifyuserid" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+</mapper>

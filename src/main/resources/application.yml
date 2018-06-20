@@ -1,0 +1,99 @@
+#服务配置
+server:
+  port: 8888
+  connection-timeout: 5000
+
+spring:
+  mvc:
+    view:
+      suffix: .html
+      prefix: /
+  #数据源
+  datasource:
+    #name: dev
+    #url: jdbc:mysql://101.89.153.94:3306/fwwltest?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;failOverReadOnly=false&amp;useSSL=false
+    #username: admin
+    #password: something
+    url: jdbc:mysql://localhost:3306/fwwl?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Hongkong
+    username: root
+    password: 123456
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+
+  #国际化
+  messages:
+    basename: i18n/messages #指定message的basename，多个以逗号分隔，如果不加包名的话，默认从classpath路径开始，默认:
+    cache-seconds: 3600  #设定加载的资源文件缓存失效时间，-1的话为永不过期，默认为-1
+    encoding: UTF-8 #设定Message bundles的编码，默认: UTF-8
+
+  aop:
+    proxy-target-class: true
+
+#redis 配置
+#  redis:
+#    host: localhost
+#    password:
+#    port: 6379
+
+#redis 配置
+jedis :  
+  pool :  
+    host : 127.0.0.1  
+    port : 6379  
+    config :  
+      maxTotal: 100  
+      maxIdle: 10  
+      maxWaitMillis : 100000
+      
+#日志
+#logging:
+ #   level:
+  #      root: DEBUG
+   #     tk.mybatis: TRACE
+
+#mybatis配置
+mybatis:
+    config-location: classpath:conf/mybatis-config.xml
+    type-aliases-package: com.worksyun.api.model
+    mapper-locations: classpath*:mapper/*.xml
+
+#mybatis 插件通用mapper
+mapper:
+    mappers:
+        - com.worksyun.commons.mapper.BaseMapper
+        - tk.mybatis.mapper.common.Mapper
+    not-empty: false
+    identity: MYSQL
+
+#mybatis 插件通用分页
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+    
+    
+#  spring:
+#  http:
+#    multipart:
+#      enabled: true
+#      max-file-size: 5MB(这里是限制的文件大小)
+#      max-request-size: 5MB(这里是限制的文件大小)
+    
+#文件上传/访问路径 /opt/worksyun/Files/
+#fileupload.path: D:/workyun/ITTP/
+fileupload.path: /opt/worksyun/Files/

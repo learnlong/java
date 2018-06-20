@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.worksyun.api.mapper.HardwareinfoMapper">
+  <resultMap id="BaseResultMap" type="com.worksyun.api.model.Hardwareinfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="hardwareId" jdbcType="CHAR" property="hardwareid" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="cardNumber" jdbcType="VARCHAR" property="cardnumber" />
+    <result column="initialPassword" jdbcType="VARCHAR" property="initialpassword" />
+    <result column="currentPassword" jdbcType="VARCHAR" property="currentpassword" />
+    <result column="userId" jdbcType="CHAR" property="userid" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="creationUserName" jdbcType="VARCHAR" property="creationusername" />
+    <result column="creationTime" jdbcType="TIMESTAMP" property="creationtime" />
+    <result column="creationUserId" jdbcType="CHAR" property="creationuserid" />
+    <result column="modifyUserName" jdbcType="VARCHAR" property="modifyusername" />
+    <result column="modifyUserId" jdbcType="CHAR" property="modifyuserid" />
+    <result column="modifyTime" jdbcType="TIMESTAMP" property="modifytime" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="mac" jdbcType="VARCHAR" property="mac" />
+    <result column="imei" jdbcType="VARCHAR" property="imei" />
+    <result column="hardwareprice" jdbcType="DECIMAL" property="hardwareprice" />
+  </resultMap>
+  
+  <select id="selectHardwareinfoByStsatus" resultMap="BaseResultMap">
+ 		select * from hardwareinfo u where 1=1 and status = 1
+	</select>
+	
+	
+	
+	<select id="selectHardwareinfoByStsatus2" resultMap="BaseResultMap">
+ 		select * from hardwareinfo u where 1=1 and status = 3
+	</select>
+	
+	 <select id="SelectHardwareinfoValite" resultMap="BaseResultMap">
+ 		select * from hardwareinfo u where 1=1 
+ 		<if test="mac!=null">
+			and mac = #{mac,jdbcType=VARCHAR}
+	    </if>
+	    <if test="imei!=null">
+			and imei = #{imei,jdbcType=VARCHAR}
+	    </if>
+	</select>
+	
+	<select id="SelectHardwareinfoValite2" resultMap="BaseResultMap">
+ 		select * from hardwareinfo u where 1=1 
+ 		<if test="mac!=null">
+			and mac = #{mac,jdbcType=VARCHAR}
+	    </if>
+	    <if test="imei!=null">
+			and imei = #{imei,jdbcType=VARCHAR}
+	    </if>
+	    <if test="userId!=null">
+			and userId = #{userId,jdbcType=VARCHAR}
+	    </if>
+	</select>
+	
+	
+	<select id="SelectHardwareinfoByUserId" resultMap="BaseResultMap">
+ 		select * from hardwareinfo u where 1=1 
+ 		<if test="userId!=null">
+			and userId = #{userId,jdbcType=VARCHAR}
+	    </if>
+	</select>
+	
+	<update id="updateByPrimaryKeyHardwareinfo" parameterType="com.worksyun.api.model.Hardwareinfo">
+    update hardwareinfo
+    <set>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="cardnumber != null">
+        cardnumber = #{cardnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="initialpassword != null">
+        initialpassword = #{initialpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="currentpassword != null">
+        currentpassword = #{currentpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creationusername != null">
+        creationusername = #{creationusername,jdbcType=VARCHAR},
+      </if>
+      <if test="creationtime != null">
+        creationtime = #{creationtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creationuserid != null">
+        creationuserid = #{creationuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyusername != null">
+        modifyusername = #{modifyusername,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyuserid != null">
+        modifyuserid = #{modifyuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="modifytime != null">
+        modifytime = #{modifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="mac != null">
+        mac = #{mac,jdbcType=VARCHAR},
+      </if>
+      <if test="imei != null">
+        imei = #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="hardwareprice != null">
+        hardwareprice = #{hardwareprice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where hardwareid = #{hardwareid,jdbcType=VARCHAR}
+  </update>
+	
+</mapper>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.worksyun.api.mapper.RssMapper">
+  <resultMap id="BaseResultMap" type="com.worksyun.api.model.Rss">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="Type" jdbcType="INTEGER" property="type" />
+    <result column="Title" jdbcType="VARCHAR" property="Title" />
+    <result column="Headlines" jdbcType="VARCHAR" property="Headlines" />
+    <result column="Author" jdbcType="VARCHAR" property="Author" />
+    <result column="Link" jdbcType="VARCHAR" property="Link" />
+    <result column="PublicDate" jdbcType="TIMESTAMP" property="public_date" />
+    <result column="ImageUrl" jdbcType="VARCHAR" property="image_url" />
+  </resultMap>
+  
+  <select id="selectRssByDate" resultMap="BaseResultMap">
+ 		select * from rss u where 1=1 
+ 		<if test="PublicDate!=null">
+			and PublicDate = #{PublicDate,jdbcType=TIMESTAMP}
+	    </if>
+	</select>
+	
+	
+	<select id="selectRss" resultMap="BaseResultMap">
+ 		select * from rss order by id desc limit 40
+	</select>
+	
+	
+	 <select id="selectRssById" resultMap="BaseResultMap">
+ 		select * from rss u where 1=1 
+ 		<if test="id!=null">
+			and id = #{id,jdbcType=VARCHAR}
+	    </if>
+	</select>
+	
+	
+</mapper>
