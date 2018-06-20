@@ -103,7 +103,7 @@ public class WordExportController {
         CTP ctpHeader = CTP.Factory.newInstance();
         CTR ctrHeader = ctpHeader.addNewR();
         CTText ctHeader = ctrHeader.addNewT();
-        String headerText = "Java POI create MS word file.";
+        String headerText = "Java POI create idcard file.";
         ctHeader.setStringValue(headerText);
         XWPFParagraph headerParagraph = new XWPFParagraph(ctpHeader, document);
         //设置为右对齐
