@@ -17,6 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,11 +26,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.util.StringUtils;
+
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.gnu.stealthp.rsslib.RSSChannel;
@@ -83,6 +86,7 @@ import com.worksyun.commons.util.DocumentHandler;
 import com.worksyun.commons.util.JedisUtil;
 import com.worksyun.commons.util.PoiUtil;
 import com.worksyun.commons.util.SerializeUtil;
+import com.worksyun.commons.util.UploadFileUtil;
 import com.worksyun.commons.util.UseCommonUtil;
 import com.worksyun.commons.util.WangyiTest;
 import com.worksyun.commons.util.WordExportController;
@@ -244,23 +248,23 @@ public class GetMessageController {
 		return list;
 	}
 
+	public static final String filesPath = "QRcode";
+	
 	@PostMapping("/createQRcode")
 	@ApiOperation(value = "生成二维码", notes = "生成二维码")
 	public String createQRcode(@RequestParam(value = "url", required = true) String url,
-			@RequestParam(value = "imgPath", required = true) String imgPath, HttpServletRequest request) {
+			@RequestParam(value = "imgPath", required = true) String imgPath,HttpServletRequest request) {
 		// 生成带logo 的二维码
 		// String text = "http://my.csdn.net/ljheee";
 		SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-		// String fileName = UUID.randomUUID().toString().replaceAll("-", "")+".jpg";
+		 //String fileName = UUID.randomUUID().toString().replaceAll("-", "")+".jpg";
 		String path = "";
-		// String
-		// path=StringUtils.join(UploadFileUtil.ROOT,"QRcode",File.separator,DateUtil.formatyyyyMMdd(new
-		// Date()));
-		// File file=new File(path);
+		path=StringUtils.join("D:\\workyun\\ITTP\\",filesPath,File.separator,DateUtil.formatyyyyMMdd(new Date()));
+		 //File file=new File(path);
 		String a2 = path.replaceAll("\\\\", "/");
 		String[] a3 = a2.split("/");
 		String a4 = "";
-		for (int i = 4; i < a3.length; i++) {
+		for (int i = 3; i < a3.length; i++) {
 			a4 = a4 + "/" + a3[i];
 		}
 		String filename = "";
@@ -270,7 +274,7 @@ public class GetMessageController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String a5 = request.getScheme() + "://" + "116.62.240.253" + ":" + "8888" + "/upload" + a4.trim().toString()
+		String a5 = request.getScheme() + "://" + "192.168.199.226" + ":" + "8888" + "/upload" + a4.trim().toString()
 				+ "/" + filename;
 		return a5;
 	}
@@ -354,7 +358,7 @@ public class GetMessageController {
 				String RssValue = (String) m2.get("RssValue");
 				String Link = (String) m2.get("Link");
 				String str = "";
-				if (StringUtils.hasText(RssValue)) {
+				/*if (StringUtils.hasText(RssValue)) {
 					Matcher matcher = ATTR_PATTERN.matcher(RssValue);
 
 					while (matcher.find()) {
@@ -365,7 +369,7 @@ public class GetMessageController {
 						str = str.substring(0, str.length() - 1);
 					}
 					// System.out.println("图片："+str);
-				}
+				}*/
 				// System.out.println("标题："+Title);
 				// System.out.println("链接地址："+Link);
 				// System.out.println("标题简介："+RssValue);
@@ -578,7 +582,8 @@ public class GetMessageController {
             	return new ResponseEntity<LoginModel>(new LoginModel(false,"请先实名认证并购买设备！"), new HttpHeaders(), HttpStatus.OK);
             }
             String idname = user.getName();
-            String path = "d:\\email\\word\\idcard"+idname+j+".docx";
+            SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+            String path = "d:\\email\\word\\idcard\\"+DateUtil.formatyyyyMMdd(new Date())+"\\"+idname+df.format(new Date())+".docx";
             File files = new File(path);
 			if (!new File(files.getParent()).exists())
 				new File(files.getParent()).mkdirs();
@@ -597,7 +602,8 @@ public class GetMessageController {
 		String path = "";
 		//for (int i = 0; i < hardwareinfo.size(); i++) {
 			// path = "D:/excel/workbook"+i+".xls";
-			path = "D:\\email\\excel\\userbaseinfo"  + ".xls";
+		    SimpleDateFormat df2 = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+			path = "D:\\email\\excel\\userbaseinfo\\"+DateUtil.formatyyyyMMdd(new Date())+"\\"+df2.format(new Date())+ ".xls";
 			File file = new File(path);
 			if (!file.getParentFile().exists())
 				file.getParentFile().mkdirs();

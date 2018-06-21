@@ -14,12 +14,12 @@ spring:
     #url: jdbc:mysql://101.89.153.94:3306/fwwltest?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;failOverReadOnly=false&amp;useSSL=false
     #username: admin
     #password: something
-    url: jdbc:mysql://localhost:3306/fwwl?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Hongkong
-    username: root
-    password: 123456
-    #url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Hongkong
+    #url: jdbc:mysql://localhost:3306/fwwl?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Hongkong
     #username: root
     #password: 123456
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Hongkong
+    username: root
+    password: 123456
     # 使用druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
