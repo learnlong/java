@@ -119,10 +119,7 @@ public class UploadFileUtil {
 					}
 					  //if(!file.getParentFile().exists())file.getParentFile().mkdirs();
 					  Thumbnails.of(pic.getInputStream())
-						.scale(1f)
-						.keepAspectRatio(false)  
-						.outputQuality(0.25f)
-						.toFile(file);
+					  .scale(1f).outputQuality(0.25f).toFile(file);
 				  }
 		} catch (IOException e) {
 			

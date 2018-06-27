@@ -34,6 +34,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         String filePath = "file:" + path;
         registry.addResourceHandler("/upload/**").addResourceLocations("file:/opt/worksyun/Files/");
+        //registry.addResourceHandler("/upload/**").addResourceLocations(filePath);
       /*  registry.addResourceHandler("swagger-ui.html")
         .addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars*")
