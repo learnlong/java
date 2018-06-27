@@ -80,6 +80,7 @@ import com.worksyun.api.service.RssService;
 //import com.worksyun.commons.LuceneUtil.NewsBean;
 //import com.worksyun.commons.LuceneUtil.ParseMD5;
 import com.worksyun.commons.model.LoginModel;
+import com.worksyun.commons.model.Message;
 import com.worksyun.commons.test.QRCodeUtil;
 import com.worksyun.commons.util.DateUtil;
 import com.worksyun.commons.util.DocumentHandler;
@@ -557,6 +558,7 @@ public class GetMessageController {
 		return new ResponseEntity<LoginModel>(new LoginModel(true, data), new HttpHeaders(), HttpStatus.OK);
 	}
 	
+	public static byte[] redisKey = "key".getBytes();
 	
 	@PostMapping("/createUserZip")
 	@ApiOperation(value = "生成用户数据到zip包", notes = "生成用户数据到zip包")
@@ -566,7 +568,10 @@ public class GetMessageController {
 			return new ResponseEntity<LoginModel>(new LoginModel(false,"请先购买设备！"), new HttpHeaders(), HttpStatus.OK);
 		}
 		List<Userauthenticate> list = new ArrayList<Userauthenticate>();
+		
 		for(int j=0;j<hardwareinfo.size();j++) {
+			Message message = new Message(j,"第"+j+"条内容");
+			JedisUtil.lpushByTemplate(redisKey, SerializeUtil.serialize(message));
 			Userauthenticate uscate = new Userauthenticate();
 			uscate.setIccid(hardwareinfo.get(j).getCardnumber());
 			String  userId = hardwareinfo.get(j).getUserid();
@@ -596,8 +601,17 @@ public class GetMessageController {
 				e.printStackTrace();
 			}
 			list.add(uscate);
+			byte[] bytes = JedisUtil.rpopByTemplate(redisKey);  
+	        Message msg = (Message) SerializeUtil.unserialize(bytes);  
+	        if(msg != null){  
+	            System.out.println(msg.getId()+" k  "+msg.getContent());  
+	        } 
 		}
-		//System.out.println(list);
+		//清除队列数据
+		//JedisUtil.delByTemplate(redisKey);
+		//查看队列数据
+		//List list2 = JedisUtil.lpopListByTemplate(redisKey);
+		//System.out.println(list2);
 		
 		String path = "";
 		//for (int i = 0; i < hardwareinfo.size(); i++) {

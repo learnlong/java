@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.worksyun.commons.model.Message;
-
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -346,7 +344,7 @@ public class JedisUtil {
 	    	 }
 	    }*/
 	    
-	    public static byte[] redisKey = "key".getBytes();  
+	    /*public static byte[] redisKey = "key".getBytes();  
 	    static{  
 	        init();  
 	    }  
@@ -366,5 +364,5 @@ public class JedisUtil {
 	        JedisUtil.lpushByTemplate(redisKey, SerializeUtil.serialize(msg2));  
 	        Message msg3 = new Message(3, "内容3");  
 	        JedisUtil.lpushByTemplate(redisKey, SerializeUtil.serialize(msg3));  
-	    }  
+	    } */ 
 }
