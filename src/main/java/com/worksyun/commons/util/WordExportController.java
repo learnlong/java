@@ -80,7 +80,7 @@ public class WordExportController {
          //表格第一行  
          XWPFTableRow comTableRowOne = ComTable1.getRow(0); 
          setCell(comTableRowOne.getCell(0),"",p);
-         comTableRowOne.getCell(0).setColor("F4F4F4");  //设置表格颜色
+         comTableRowOne.getCell(0).setColor("ffffff");  //设置表格颜色
         
          XWPFTableRow comTableRow = ComTable1.createRow();
          //setPicCell(comTableRow.getCell(0),"",p,"d:/bass.jpg");
@@ -88,7 +88,7 @@ public class WordExportController {
          
          XWPFTableRow comTableRow2 = ComTable1.createRow();
          setCell(comTableRow2.getCell(0),"",p);
-         comTableRow2.getCell(0).setColor("F4F4F4");
+         comTableRow2.getCell(0).setColor("ffffff");
          
          @SuppressWarnings("unused")
 		XWPFTableRow comTableRow3 = ComTable1.createRow();
@@ -140,7 +140,7 @@ public class WordExportController {
      }
      XWPFRun pRun=p.createRun();
      pRun.setText(text);
-     pRun.addPicture(new FileInputStream(picpath), XWPFDocument.PICTURE_TYPE_PNG, "", Units.toEMU(320), Units.toEMU(190));
+     pRun.addPicture(new FileInputStream(picpath), XWPFDocument.PICTURE_TYPE_PNG, "", Units.toEMU(320), Units.toEMU(280));
      //pRun.setFontSize(20);
 
      //垂直居中
