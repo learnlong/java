@@ -633,4 +633,79 @@ public class GetMessageController {
 		// return;
 			return new ResponseEntity<LoginModel>(new LoginModel(true, "压缩成功！"), new HttpHeaders(), HttpStatus.OK);
 	}
+	
+	
+	@PostMapping("/createUserZip2")
+	@ApiOperation(value = "linux生成用户数据到zip包", notes = "linux生成用户数据到zip包")
+	public ResponseEntity<LoginModel> createUserZip2() throws IOException {
+		List<Hardwareinfo> hardwareinfo = hardwareinfoMapper.selectHardwareinfoByStsatus2();
+		if(hardwareinfo.isEmpty()) {
+			return new ResponseEntity<LoginModel>(new LoginModel(false,"请先购买设备！"), new HttpHeaders(), HttpStatus.OK);
+		}
+		List<Userauthenticate> list = new ArrayList<Userauthenticate>();
+		
+		for(int j=0;j<hardwareinfo.size();j++) {
+			Message message = new Message(j,"第"+j+"条内容");
+			JedisUtil.lpushByTemplate(redisKey, SerializeUtil.serialize(message));
+			Userauthenticate uscate = new Userauthenticate();
+			uscate.setIccid(hardwareinfo.get(j).getCardnumber());
+			String  userId = hardwareinfo.get(j).getUserid();
+			Userbaseinfo user = userbaseinfoMapper.selectByPrimaryKey(userId);
+			uscate.setIdcard(user.getIdcard());
+			uscate.setMobile(user.getMobile());
+			uscate.setName(user.getName());
+            uscate.setAddr("");
+            uscate.setCompany("复威");
+            String pic = user.getCardpicture1();
+            String pic2 = user.getCardpicture2();
+            if(pic.isEmpty()||pic2.isEmpty()) {
+            	return new ResponseEntity<LoginModel>(new LoginModel(false,"请先实名认证并购买设备！"), new HttpHeaders(), HttpStatus.OK);
+            }
+            String idname = user.getName();
+            SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+            String path = "/opt/email/word/idcard/"+DateUtil.formatyyyyMMdd(new Date())+"/"+idname+df.format(new Date())+".docx";
+            File files = new File(path);
+			if (!new File(files.getParent()).exists())
+				new File(files.getParent()).mkdirs();
+				files.createNewFile();
+				WordExportController wordcontroller = new WordExportController();
+            try {
+				wordcontroller.createword(path,pic,pic2);
+			} catch (InvalidFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			list.add(uscate);
+			byte[] bytes = JedisUtil.rpopByTemplate(redisKey);  
+	        Message msg = (Message) SerializeUtil.unserialize(bytes);  
+	        if(msg != null){  
+	            System.out.println(msg.getId()+" k  "+msg.getContent());  
+	        } 
+		}
+		//清除队列数据
+		//JedisUtil.delByTemplate(redisKey);
+		//查看队列数据
+		//List list2 = JedisUtil.lpopListByTemplate(redisKey);
+		//System.out.println(list2);
+		
+		String path = "";
+		//for (int i = 0; i < hardwareinfo.size(); i++) {
+			// path = "D:/excel/workbook"+i+".xls";
+		    SimpleDateFormat df2 = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+			path = "/opt/email/execl/userbaseinfo/"+DateUtil.formatyyyyMMdd(new Date())+"/"+df2.format(new Date())+ ".xls";
+			File file = new File(path);
+			if (!file.getParentFile().exists())
+				file.getParentFile().mkdirs();
+			HSSFWorkbook ssfwork = PoiUtil.expExcel2(list);
+			FileOutputStream out = new FileOutputStream(path);
+			// 如果是浏览器通过request请求需要在浏览器中输出则使用下面方式
+			// OutputStream out = response.getOutputStream();
+			ssfwork.write(out);
+			out.close();
+		//}
+			FileOutputStream fos1 = new FileOutputStream(new File("/opt/email.zip"));
+			ZipUtils.toZip("/opt/email", fos1,true);
+		// return;
+			return new ResponseEntity<LoginModel>(new LoginModel(true, "压缩成功！"), new HttpHeaders(), HttpStatus.OK);
+	}
 }
