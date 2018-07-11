@@ -269,7 +269,7 @@ public class Jdpush
 		new Jdpush().sendAlias("这是分组发送。。。", sendAlias);
 		
 		//new Jdpush().sendAllMessage("这是后台发送的透传消息");
-		//new Jdpush().sendAllsetNotification("这是后台发送的通知");
+		//new Jdpush().sendAllsetNotification("这是后台发送的通知");2
 	}*/
 }
 

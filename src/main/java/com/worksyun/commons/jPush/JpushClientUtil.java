@@ -409,7 +409,7 @@ public class JpushClientUtil {
         List<String> sendAlias = new ArrayList<>();
 		sendAlias.add("123456");
 		sendAlias.add("12345678");
-		JpushClientUtil.sendAlias("这是分组发送2", sendAlias);
+		JpushClientUtil.sendAlias("这是分组发送2", sendAlias);1
     }*/
 }
  
