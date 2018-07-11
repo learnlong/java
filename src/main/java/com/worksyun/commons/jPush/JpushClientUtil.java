@@ -398,19 +398,19 @@ public class JpushClientUtil {
 				.setOptions(Options.newBuilder().setApnsProduction(true).build()).build();
 	}
  
-    public static void main(String[] args){
-        /*if(JpushClientUtil.sendToAllIos("testIos","testIos","this is a ios Dev test","")==1){
+   /* public static void main(String[] args){
+        if(JpushClientUtil.sendToAllIos("testIos","testIos","this is a ios Dev test","")==1){
             System.out.println("success");
-        }*/
-        /*if(JpushClientUtil.sendToAllAndroid("testAndriod", "testAndroid", "this is a android Dev test", "")==1) {
+        }
+        if(JpushClientUtil.sendToAllAndroid("testAndriod", "testAndroid", "this is a android Dev test", "")==1) {
         	System.out.println("success");
-        }*/
+        }
         
         List<String> sendAlias = new ArrayList<>();
 		sendAlias.add("123456");
 		sendAlias.add("12345678");
 		JpushClientUtil.sendAlias("这是分组发送2", sendAlias);
-    }
+    }*/
 }
  
  

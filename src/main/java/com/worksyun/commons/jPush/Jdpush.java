@@ -261,7 +261,7 @@ public class Jdpush
 				.setOptions(Options.newBuilder().setApnsProduction(true).build()).build();
 	}
  
-	public static void main(String[] args)
+	/*public static void main(String[] args)
 	{
 		// new PushUtil().sendAll("这是java后台发送的一个通知。。。。");
 		List<String> sendAlias = new ArrayList<>();
@@ -270,6 +270,6 @@ public class Jdpush
 		
 		//new Jdpush().sendAllMessage("这是后台发送的透传消息");
 		//new Jdpush().sendAllsetNotification("这是后台发送的通知");
-	}
+	}*/
 }
 
