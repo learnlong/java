@@ -64,6 +64,9 @@ dependencies {
 	compile files('lib/IKAnalyzer2012FF_u1.jar')
 	compile files('lib/chardet-1.0.jar')
 	
+	//极光推送
+	compile("cn.jpush.api:jpush-client:3.3.4")
+	
 	//自动部署
 	//compile("org.springframework.boot:spring-boot-devtools:1.5.9.RELEASE")
 	
