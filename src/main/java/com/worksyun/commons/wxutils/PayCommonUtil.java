@@ -274,7 +274,7 @@ public class PayCommonUtil {
 	     
 	     public static String doRefund(String url, String data) throws Exception {
 	         KeyStore keyStore = KeyStore.getInstance("PKCS12");
-	         FileInputStream is = new FileInputStream(new File("D:/apiclient_cert.p12"));
+	         FileInputStream is = new FileInputStream(new File("/opt/worksyun/Files/apiclient_cert.p12"));
 	         try {
 	             keyStore.load(is, "1494662882".toCharArray());// 这里写密码..默认是你的MCHID
 	         } finally {
